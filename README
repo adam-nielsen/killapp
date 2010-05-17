@@ -1,0 +1,60 @@
+Killapp: Monitor a Windows program via a tray icon, and provide a
+right-click menu to forcefully terminate it.
+
+Copyright 2010 Adam Nielsen <adam.nielsen@uq.edu.au>
+http://github.com/adam-nielsen/killapp
+
+Purpose
+-------
+This utility monitors a process (a running .exe file) and allows it to be
+easily terminated via a right-click menu in the system tray.  When the
+application is terminated it is done so forcefully, in the same way as choosing
+"End Task" in Task Manager, only the user does not require access to run the
+Task Manager application.
+
+It is intended for use in remote-access situations (such has Citrix) where
+end-users typically do not have enough access to forcefully terminate
+applications themselves.
+
+Because of this, the application does not hang around to keep the session open.
+If the process to monitor cannot be found within 10 seconds it will silently
+exit, and it will automatically exit once the process terminates normally.
+
+Usage
+-----
+
+Both the application to monitor and the icon to use in the tray must be
+specified:
+
+  killapp \target.exe trayicon.ico
+
+This will wait for up to 10 seconds for target.exe to be loaded, and will use
+trayicon.ico as the system tray icon.
+
+"target.exe" is matched against the end of the full process path, so you can
+include partial path matches in the event that there are multiple processes
+with the same .exe name.  An example is folder\test.exe.  Avoid using
+"test.exe" with no path at all, as this will match both "mytest.exe" and
+"yourtest.exe" and so may result in an unexpected application being terminated.
+Instead use "\test.exe" as this will match only test.exe loaded from any path.
+
+Note that you cannot use drive letters as the full name being matched is of
+the Windows kernel form:
+
+  \Device\HarddiskVolume1\WINDOWS\explorer.exe
+
+License
+-------
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
