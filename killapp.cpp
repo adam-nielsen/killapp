@@ -170,7 +170,10 @@ LRESULT CALLBACK windowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					}
 					break;
 				case IDC_EXIT:
-					PostQuitMessage(0);
+					if (MessageBox(hWnd, "Are you sure you want to remove this icon?  You will no longer be able to use it to terminate the application.", "Confirm", MB_YESNO | MB_ICONQUESTION) == IDYES) {
+						DestroyWindow(hWnd);
+						//PostQuitMessage(0); // Doesn't work under Windows Server 2008, does work under Win7
+					}
 					break;
 			}
 			break;
