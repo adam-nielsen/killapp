@@ -13,6 +13,7 @@ clean:
 
 $(TARGET): $(OBJ)
 	$(HOST)$(CXX) -mwindows -o $@ $+
+	$(HOST)strip $@
 
 %.o: %.cpp
 	$(HOST)$(CXX) -c -o killapp.o killapp.cpp
